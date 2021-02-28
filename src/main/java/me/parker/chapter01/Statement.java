@@ -14,7 +14,7 @@ public class Statement {
         format.setMaximumFractionDigits(2);
 
         for (Invoice.Performance perf : invoice.getPerformances()) {
-            final var play = plays.get(perf.getPlayID());
+            final var play = playFor(plays, perf);
             var thisAmount = amountFor(perf, play);
 
             // 포인트를 적립한다.
@@ -35,6 +35,10 @@ public class Statement {
         result += "적립 포인트: " + volumeCredits + "점\n";
 
         return result;
+    }
+
+    private static Play playFor(Map<String, Play> plays, Invoice.Performance perf) {
+        return plays.get(perf.getPlayID());
     }
 
     private static int amountFor(Invoice.Performance aPerformance, Play play) {
