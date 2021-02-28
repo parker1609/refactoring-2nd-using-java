@@ -15,25 +15,7 @@ public class Statement {
 
         for (Invoice.Performance perf : invoice.getPerformances()) {
             final var play = plays.get(perf.getPlayID());
-            var thisAmount = 0;
-
-            switch (play.getType()) {
-                case "tragedy":  // 비극
-                    thisAmount = 40_000;
-                    if (perf.getAudience() > 30) {
-                        thisAmount += 1_000 * (perf.getAudience() - 30);
-                    }
-                    break;
-                case "comedy":   // 희극
-                    thisAmount = 30_000;
-                    if (perf.getAudience() > 20) {
-                        thisAmount += 10_000 + 500 * (perf.getAudience() - 20);
-                    }
-                    thisAmount += 300 * perf.getAudience();
-                    break;
-                default:
-                    throw new IllegalArgumentException("알 수 없는 장르: " + play.getType());
-            }
+            var thisAmount = amountFor(perf, play);
 
             // 포인트를 적립한다.
             volumeCredits += Math.max(perf.getAudience() - 30, 0);
@@ -53,5 +35,28 @@ public class Statement {
         result += "적립 포인트: " + volumeCredits + "점\n";
 
         return result;
+    }
+
+    private static int amountFor(Invoice.Performance perf, Play play) {
+        int thisAmount = 0;
+
+        switch (play.getType()) {
+            case "tragedy":  // 비극
+                thisAmount = 40_000;
+                if (perf.getAudience() > 30) {
+                    thisAmount += 1_000 * (perf.getAudience() - 30);
+                }
+                break;
+            case "comedy":   // 희극
+                thisAmount = 30_000;
+                if (perf.getAudience() > 20) {
+                    thisAmount += 10_000 + 500 * (perf.getAudience() - 20);
+                }
+                thisAmount += 300 * perf.getAudience();
+                break;
+            default:
+                throw new IllegalArgumentException("알 수 없는 장르: " + play.getType());
+        }
+        return thisAmount;
     }
 }
