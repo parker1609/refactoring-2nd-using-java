@@ -14,8 +14,6 @@ public class Statement {
         format.setMaximumFractionDigits(2);
 
         for (Invoice.Performance perf : invoice.getPerformances()) {
-            var thisAmount = amountFor(perf, playFor(plays, perf));
-
             // 포인트를 적립한다.
             volumeCredits += Math.max(perf.getAudience() - 30, 0);
             // 희극 관객 5명마다 추가 포인트를 제공한다.
@@ -25,9 +23,9 @@ public class Statement {
 
             // 청구 내역을 출력한다.
             result += "  " + playFor(plays, perf).getName() + ": "
-                    + format.format(thisAmount / 100)
+                    + format.format(amountFor(perf, playFor(plays, perf)) / 100)
                     + " (" + perf.getAudience() + "석)\n";
-            totalAmount += thisAmount;
+            totalAmount += amountFor(perf, playFor(plays, perf));
         }
 
         result += "총액: " + format.format(totalAmount / 100) + "\n";
