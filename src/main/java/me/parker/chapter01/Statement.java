@@ -14,18 +14,17 @@ public class Statement {
         format.setMaximumFractionDigits(2);
 
         for (Invoice.Performance perf : invoice.getPerformances()) {
-            final var play = playFor(plays, perf);
-            var thisAmount = amountFor(perf, play);
+            var thisAmount = amountFor(perf, playFor(plays, perf));
 
             // 포인트를 적립한다.
             volumeCredits += Math.max(perf.getAudience() - 30, 0);
             // 희극 관객 5명마다 추가 포인트를 제공한다.
-            if ("comedy".equals(play.getType())) {
+            if ("comedy".equals(playFor(plays, perf).getType())) {
                 volumeCredits += Math.floor(perf.getAudience() / 5);
             }
 
             // 청구 내역을 출력한다.
-            result += "  " + play.getName() + ": "
+            result += "  " + playFor(plays, perf).getName() + ": "
                     + format.format(thisAmount / 100)
                     + " (" + perf.getAudience() + "석)\n";
             totalAmount += thisAmount;
