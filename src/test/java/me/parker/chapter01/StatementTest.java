@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class StatementTest {
 
     private static final ObjectMapper ob = new ObjectMapper();
-    private Map<String, Object> plays = new HashMap<>();
+    private Map<String, Play> plays = new HashMap<>();
     private Invoice invoice;
 
     @BeforeEach
