@@ -37,22 +37,22 @@ public class Statement {
         return result;
     }
 
-    private static int amountFor(Invoice.Performance perf, Play play) {
+    private static int amountFor(Invoice.Performance aPerformance, Play play) {
         int result = 0;
 
         switch (play.getType()) {
             case "tragedy":  // 비극
                 result = 40_000;
-                if (perf.getAudience() > 30) {
-                    result += 1_000 * (perf.getAudience() - 30);
+                if (aPerformance.getAudience() > 30) {
+                    result += 1_000 * (aPerformance.getAudience() - 30);
                 }
                 break;
             case "comedy":   // 희극
                 result = 30_000;
-                if (perf.getAudience() > 20) {
-                    result += 10_000 + 500 * (perf.getAudience() - 20);
+                if (aPerformance.getAudience() > 20) {
+                    result += 10_000 + 500 * (aPerformance.getAudience() - 20);
                 }
-                result += 300 * perf.getAudience();
+                result += 300 * aPerformance.getAudience();
                 break;
             default:
                 throw new IllegalArgumentException("알 수 없는 장르: " + play.getType());
