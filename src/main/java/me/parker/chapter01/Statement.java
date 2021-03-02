@@ -28,15 +28,20 @@ public class Statement {
                     + " (" + perf.getAudience() + "석)\n";
         }
 
-        var totalAmount = 0;
-        for (Invoice.Performance perf : invoice.getPerformances()) {
-            totalAmount += amountFor(perf);
-        }
+        int totalAmount = totalAmount();
 
         result += "총액: " + usd(totalAmount) + "\n";
         result += "적립 포인트: " + totalVolumeCredits() + "점\n";
 
         return result;
+    }
+
+    private int totalAmount() {
+        var totalAmount = 0;
+        for (Invoice.Performance perf : invoice.getPerformances()) {
+            totalAmount += amountFor(perf);
+        }
+        return totalAmount;
     }
 
     private int totalVolumeCredits() {
