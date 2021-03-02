@@ -41,14 +41,14 @@ public class Statement {
         return result;
     }
 
-    private int volumeCreditsFor(Invoice.Performance perf) {
-        var volumeCredits = 0;
-        volumeCredits += Math.max(perf.getAudience() - 30, 0);
-        if ("comedy".equals(playFor(perf).getType())) {
-            volumeCredits += Math.floor(perf.getAudience() / 5);
+    private int volumeCreditsFor(Invoice.Performance aPerformance) {
+        var result = 0;
+        result += Math.max(aPerformance.getAudience() - 30, 0);
+        if ("comedy".equals(playFor(aPerformance).getType())) {
+            result += Math.floor(aPerformance.getAudience() / 5);
         }
 
-        return volumeCredits;
+        return result;
     }
 
     private Play playFor(Invoice.Performance aPerformance) {
