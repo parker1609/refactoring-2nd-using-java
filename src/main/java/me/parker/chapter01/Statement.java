@@ -30,15 +30,20 @@ public class Statement {
             totalAmount += amountFor(perf);
         }
 
+        int volumeCredits = totalVolumeCredits();
+        result += "총액: " + usd(totalAmount) + "\n";
+        result += "적립 포인트: " + volumeCredits + "점\n";
+
+        return result;
+    }
+
+    private int totalVolumeCredits() {
         var volumeCredits = 0;
         for (Invoice.Performance perf : invoice.getPerformances()) {
             volumeCredits += volumeCreditsFor(perf);
         }
 
-        result += "총액: " + usd(totalAmount) + "\n";
-        result += "적립 포인트: " + volumeCredits + "점\n";
-
-        return result;
+        return volumeCredits;
     }
 
     private String usd(long aNumber) {
