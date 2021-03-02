@@ -22,30 +22,35 @@ public class Statement {
         var totalAmount = 0;
         var volumeCredits = 0;
         var result = "청구 내역 (고객명: " + invoice.getCustomer() + ")\n";
-        final var format = NumberFormat.getCurrencyInstance(Locale.US);
-        format.setMaximumFractionDigits(2);
 
         for (Invoice.Performance perf : invoice.getPerformances()) {
             volumeCredits += volumeCreditsFor(perf);
 
             // 청구 내역을 출력한다.
             result += "  " + playFor(perf).getName() + ": "
-                    + format.format(amountFor(perf) / 100)
+                    + format((double) amountFor(perf) / 100)
                     + " (" + perf.getAudience() + "석)\n";
             totalAmount += amountFor(perf);
         }
 
-        result += "총액: " + format.format(totalAmount / 100) + "\n";
+        result += "총액: " + format((double) totalAmount / 100) + "\n";
         result += "적립 포인트: " + volumeCredits + "점\n";
 
         return result;
+    }
+
+    private String format(double aNumber) {
+        final var format = NumberFormat.getCurrencyInstance(Locale.US);
+        format.setMaximumFractionDigits(2);
+
+        return format.format(aNumber);
     }
 
     private int volumeCreditsFor(Invoice.Performance aPerformance) {
         var result = 0;
         result += Math.max(aPerformance.getAudience() - 30, 0);
         if ("comedy".equals(playFor(aPerformance).getType())) {
-            result += Math.floor(aPerformance.getAudience() / 5);
+            result += Math.floor((double) aPerformance.getAudience() / 5);
         }
 
         return result;
