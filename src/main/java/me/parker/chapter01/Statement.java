@@ -35,9 +35,9 @@ public class Statement {
 
             // 청구 내역을 출력한다.
             result += "  " + playFor(perf).getName() + ": "
-                    + format.format(amountFor(perf, playFor(perf)) / 100)
+                    + format.format(amountFor(perf) / 100)
                     + " (" + perf.getAudience() + "석)\n";
-            totalAmount += amountFor(perf, playFor(perf));
+            totalAmount += amountFor(perf);
         }
 
         result += "총액: " + format.format(totalAmount / 100) + "\n";
@@ -50,7 +50,7 @@ public class Statement {
         return plays.get(aPerformance.getPlayID());
     }
 
-    private int amountFor(Invoice.Performance aPerformance, Play play) {
+    private int amountFor(Invoice.Performance aPerformance) {
         int result = 0;
 
         switch (playFor(aPerformance).getType()) {
