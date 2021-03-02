@@ -28,22 +28,22 @@ public class Statement {
 
             // 청구 내역을 출력한다.
             result += "  " + playFor(perf).getName() + ": "
-                    + format((double) amountFor(perf) / 100)
+                    + usd(amountFor(perf))
                     + " (" + perf.getAudience() + "석)\n";
             totalAmount += amountFor(perf);
         }
 
-        result += "총액: " + format((double) totalAmount / 100) + "\n";
+        result += "총액: " + usd(totalAmount) + "\n";
         result += "적립 포인트: " + volumeCredits + "점\n";
 
         return result;
     }
 
-    private String format(double aNumber) {
+    private String usd(long aNumber) {
         final var format = NumberFormat.getCurrencyInstance(Locale.US);
         format.setMaximumFractionDigits(2);
 
-        return format.format(aNumber);
+        return format.format((double) aNumber / 100);
     }
 
     private int volumeCreditsFor(Invoice.Performance aPerformance) {
