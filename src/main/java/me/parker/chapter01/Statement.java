@@ -27,6 +27,9 @@ public class Statement {
             result += "  " + playFor(perf).getName() + ": "
                     + usd(amountFor(perf))
                     + " (" + perf.getAudience() + "석)\n";
+        }
+
+        for (Invoice.Performance perf : invoice.getPerformances()) {
             totalAmount += amountFor(perf);
         }
 
