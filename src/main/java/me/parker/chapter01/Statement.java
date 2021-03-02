@@ -35,20 +35,19 @@ public class Statement {
     }
 
     private int totalAmount() {
-        var totalAmount = 0;
+        var result = 0;
         for (Invoice.Performance perf : invoice.getPerformances()) {
-            totalAmount += amountFor(perf);
+            result += amountFor(perf);
         }
-        return totalAmount;
+        return result;
     }
 
     private int totalVolumeCredits() {
-        var volumeCredits = 0;
+        var result = 0;
         for (Invoice.Performance perf : invoice.getPerformances()) {
-            volumeCredits += volumeCreditsFor(perf);
+            result += volumeCreditsFor(perf);
         }
-
-        return volumeCredits;
+        return result;
     }
 
     private String usd(long aNumber) {
@@ -64,7 +63,6 @@ public class Statement {
         if ("comedy".equals(playFor(aPerformance).getType())) {
             result += Math.floor((double) aPerformance.getAudience() / 5);
         }
-
         return result;
     }
 
