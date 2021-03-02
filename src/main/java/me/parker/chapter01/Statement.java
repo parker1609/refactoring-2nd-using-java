@@ -28,9 +28,7 @@ public class Statement {
                     + " (" + perf.getAudience() + "석)\n";
         }
 
-        int totalAmount = totalAmount();
-
-        result += "총액: " + usd(totalAmount) + "\n";
+        result += "총액: " + usd(totalAmount()) + "\n";
         result += "적립 포인트: " + totalVolumeCredits() + "점\n";
 
         return result;
