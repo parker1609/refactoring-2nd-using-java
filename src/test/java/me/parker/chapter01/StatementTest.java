@@ -44,7 +44,8 @@ public class StatementTest {
     @Test
     @DisplayName("statement 메서드 테스트한다.")
     void example_test() {
-        String result = Statement.statement(invoice, plays);
+        Statement statement = new Statement(invoice, plays);
+        String result = statement.statement();
 
         assertThat(result).isEqualTo(
                 "청구 내역 (고객명: BigCo)\n" +

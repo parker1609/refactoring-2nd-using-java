@@ -1,12 +1,24 @@
 package me.parker.chapter01;
 
+import lombok.Getter;
+import lombok.ToString;
+
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Map;
 
+@Getter
+@ToString
 public class Statement {
+    private Invoice invoice;
+    private Map<String, Play> plays;
 
-    public static String statement(Invoice invoice, Map<String, Play> plays) {
+    public Statement(Invoice invoice, Map<String, Play> plays) {
+        this.invoice = invoice;
+        this.plays = plays;
+    }
+
+    public String statement() {
         var totalAmount = 0;
         var volumeCredits = 0;
         var result = "청구 내역 (고객명: " + invoice.getCustomer() + ")\n";
@@ -34,11 +46,11 @@ public class Statement {
         return result;
     }
 
-    private static Play playFor(Map<String, Play> plays, Invoice.Performance perf) {
+    private Play playFor(Map<String, Play> plays, Invoice.Performance perf) {
         return plays.get(perf.getPlayID());
     }
 
-    private static int amountFor(Invoice.Performance aPerformance, Play play) {
+    private int amountFor(Invoice.Performance aPerformance, Play play) {
         int result = 0;
 
         switch (play.getType()) {
