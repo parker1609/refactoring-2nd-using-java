@@ -53,7 +53,7 @@ public class Statement {
     private int amountFor(Invoice.Performance aPerformance, Play play) {
         int result = 0;
 
-        switch (play.getType()) {
+        switch (playFor(aPerformance).getType()) {
             case "tragedy":  // 비극
                 result = 40_000;
                 if (aPerformance.getAudience() > 30) {
@@ -68,7 +68,7 @@ public class Statement {
                 result += 300 * aPerformance.getAudience();
                 break;
             default:
-                throw new IllegalArgumentException("알 수 없는 장르: " + play.getType());
+                throw new IllegalArgumentException("알 수 없는 장르: " + playFor(aPerformance).getType());
         }
         return result;
     }
