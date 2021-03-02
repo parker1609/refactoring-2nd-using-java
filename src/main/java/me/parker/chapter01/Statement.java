@@ -19,7 +19,6 @@ public class Statement {
     }
 
     public String statement() {
-        var totalAmount = 0;
         var result = "청구 내역 (고객명: " + invoice.getCustomer() + ")\n";
 
         for (Invoice.Performance perf : invoice.getPerformances()) {
@@ -29,6 +28,7 @@ public class Statement {
                     + " (" + perf.getAudience() + "석)\n";
         }
 
+        var totalAmount = 0;
         for (Invoice.Performance perf : invoice.getPerformances()) {
             totalAmount += amountFor(perf);
         }
