@@ -24,13 +24,15 @@ public class Statement {
         var result = "청구 내역 (고객명: " + invoice.getCustomer() + ")\n";
 
         for (Invoice.Performance perf : invoice.getPerformances()) {
-            volumeCredits += volumeCreditsFor(perf);
-
             // 청구 내역을 출력한다.
             result += "  " + playFor(perf).getName() + ": "
                     + usd(amountFor(perf))
                     + " (" + perf.getAudience() + "석)\n";
             totalAmount += amountFor(perf);
+        }
+
+        for (Invoice.Performance perf : invoice.getPerformances()) {
+            volumeCredits += volumeCreditsFor(perf);
         }
 
         result += "총액: " + usd(totalAmount) + "\n";
