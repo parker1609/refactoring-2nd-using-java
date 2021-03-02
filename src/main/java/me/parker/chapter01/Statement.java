@@ -29,15 +29,15 @@ public class Statement {
             // 포인트를 적립한다.
             volumeCredits += Math.max(perf.getAudience() - 30, 0);
             // 희극 관객 5명마다 추가 포인트를 제공한다.
-            if ("comedy".equals(playFor(plays, perf).getType())) {
+            if ("comedy".equals(playFor(perf).getType())) {
                 volumeCredits += Math.floor(perf.getAudience() / 5);
             }
 
             // 청구 내역을 출력한다.
-            result += "  " + playFor(plays, perf).getName() + ": "
-                    + format.format(amountFor(perf, playFor(plays, perf)) / 100)
+            result += "  " + playFor(perf).getName() + ": "
+                    + format.format(amountFor(perf, playFor(perf)) / 100)
                     + " (" + perf.getAudience() + "석)\n";
-            totalAmount += amountFor(perf, playFor(plays, perf));
+            totalAmount += amountFor(perf, playFor(perf));
         }
 
         result += "총액: " + format.format(totalAmount / 100) + "\n";
@@ -46,8 +46,8 @@ public class Statement {
         return result;
     }
 
-    private Play playFor(Map<String, Play> plays, Invoice.Performance perf) {
-        return plays.get(perf.getPlayID());
+    private Play playFor(Invoice.Performance aPerformance) {
+        return plays.get(aPerformance.getPlayID());
     }
 
     private int amountFor(Invoice.Performance aPerformance, Play play) {
